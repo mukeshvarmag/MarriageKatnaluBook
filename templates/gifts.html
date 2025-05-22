@@ -19,7 +19,13 @@
         {% for gift in gifts %}
             <li class="gift-item">
                 <div class="gift-info">
-                    <strong>{{ gift.name }}</strong> from <em>{{ gift.place }}</em> gifted <strong>{{ gift.amount_or_gift }}</strong>
+                    <strong>{{ loop.index }}.</strong>
+                    <strong>{{ gift.name }}</strong> from <em>{{ gift.place }}</em> gifted
+                    {% if 'Amount' in gift.amount_or_gift %}
+                        {{ gift.amount_or_gift.replace('Amount ', 'Amount ₹') }}
+                    {% else %}
+                        {{ gift.amount_or_gift }}
+                    {% endif %}
                 </div>
                 <div class="gift-actions">
                     <a href="{{ url_for('edit_gift', gift_id=gift.id) }}" class="edit-btn">✏️ Edit</a>

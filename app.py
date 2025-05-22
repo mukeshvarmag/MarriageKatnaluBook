@@ -93,13 +93,25 @@ def view_gifts():
 @login_required
 def edit_gift(gift_id):
     gift = Gift.query.get_or_404(gift_id)
+
     if request.method == 'POST':
         gift.name = request.form['name']
         gift.place = request.form['place']
-        gift.amount_or_gift = request.form['amount_or_gift']
+        gift_type = request.form['gift_type']
+
+        if gift_type == 'Amount':
+            amount = request.form.get('amount_value')
+            payment_method = request.form.get('payment_method')
+            gift.amount_or_gift = f"Amount ₹{amount} via {payment_method}"
+        else:
+            gift_description = request.form.get('gift_description')
+            gift.amount_or_gift = f"Gift: {gift_description}"
+
         db.session.commit()
         return redirect(url_for('view_gifts'))
+
     return render_template('edit.html', gift=gift)
+
 
 @app.route('/delete/<int:gift_id>', methods=['POST'])
 @login_required

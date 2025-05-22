@@ -5,28 +5,63 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
 <div class="top-right">
     <form action="{{ url_for('logout') }}" method="GET">
         <button type="submit" class="logout-btn">🚪 Logout</button>
     </form>
 </div>
 
-    <h2>Edit Gift</h2>
-    <form method="POST">
-        <label>Name:</label>
-        <input type="text" name="name" value="{{ gift.name }}" required>
+<h2 class="title">Edit Gift Entry</h2>
 
-        <label>Place:</label>
-        <input type="text" name="place" value="{{ gift.place }}" required>
+<form method="POST" class="form-container">
+    <label>Name:</label>
+    <input type="text" name="name" value="{{ gift.name }}" required>
 
-        <label>Amount or Gift:</label>
-        <input type="text" name="amount_or_gift" value="{{ gift.amount_or_gift }}" required>
+    <label>Place:</label>
+    <input type="text" name="place" value="{{ gift.place }}" required>
 
-        <input type="submit" value="Update Gift">
-    </form>
+    <label>Gift Type:</label>
+    <select name="gift_type" id="gift_type" onchange="toggleEditFields()" required>
+        <option value="Amount" {% if 'Amount' in gift.amount_or_gift %}selected{% endif %}>Amount</option>
+        <option value="Gift" {% if 'Gift:' in gift.amount_or_gift %}selected{% endif %}>Gift</option>
+    </select>
 
-    <div style="text-align:center; margin-top:20px;">
-        <a href="{{ url_for('view_gifts') }}">Cancel / Back to List</a>
+    <!-- Amount Section -->
+    <div id="amount-section" style="display: none;">
+        <label>Amount (₹):</label>
+        <input type="text" name="amount_value"
+               value="{% if 'Amount' in gift.amount_or_gift %}{{ gift.amount_or_gift.split('₹')[1].split(' ')[0] }}{% endif %}">
+
+        <label>Payment Method:</label>
+        <select name="payment_method">
+            <option value="UPI" {% if 'UPI' in gift.amount_or_gift %}selected{% endif %}>UPI</option>
+            <option value="Cash" {% if 'Cash' in gift.amount_or_gift %}selected{% endif %}>Cash</option>
+        </select>
     </div>
+
+    <!-- Gift Section -->
+    <div id="gift-section" style="display: none;">
+        <label>Gift Description:</label>
+        <input type="text" name="gift_description"
+               value="{% if 'Gift:' in gift.amount_or_gift %}{{ gift.amount_or_gift.split('Gift: ')[1] }}{% endif %}">
+    </div>
+
+    <input type="submit" value="Update Gift">
+</form>
+
+<div class="back-link">
+    <a href="{{ url_for('view_gifts') }}">⬅️ Cancel / Back to List</a>
+</div>
+
+<script>
+function toggleEditFields() {
+    const type = document.getElementById("gift_type").value;
+    document.getElementById("amount-section").style.display = (type === "Amount") ? "block" : "none";
+    document.getElementById("gift-section").style.display = (type === "Gift") ? "block" : "none";
+}
+window.onload = toggleEditFields;
+</script>
+
 </body>
 </html>

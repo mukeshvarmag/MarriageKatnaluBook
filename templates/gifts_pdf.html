@@ -39,6 +39,7 @@
     <table>
         <thead>
             <tr>
+                <th>S.No.</th>
                 <th>Name</th>
                 <th>Place</th>
                 <th>Amount / Gift</th>
@@ -47,9 +48,10 @@
         <tbody>
             {% for gift in gifts %}
             <tr>
+                <td>{{ loop.index }}</td>
                 <td>{{ gift.name }}</td>
                 <td>{{ gift.place }}</td>
-                <td>{{ gift.amount_or_gift }}</td>
+                <td>{{ gift.amount_or_gift | safe }}</td>
             </tr>
             {% endfor %}
         </tbody>
