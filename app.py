@@ -22,6 +22,8 @@ class Gift(db.Model):
     name = db.Column(db.String(100), nullable=False)
     place = db.Column(db.String(100), nullable=False)
     amount_or_gift = db.Column(db.String(100), nullable=False)
+    payment_method = db.Column(db.String(50))  # Optional
+
 
 with app.app_context():
     db.create_all()
@@ -65,11 +67,21 @@ def home():
 def submit_gift():
     name = request.form['name']
     place = request.form['place']
-    amount_or_gift = request.form['amount_or_gift']
-    new_gift = Gift(name=name, place=place, amount_or_gift=amount_or_gift)
+    gift_type = request.form['gift_type']
+
+    if gift_type == 'Amount':
+        payment_method = request.form.get('payment_method')
+        amount = request.form.get('amount_value')
+        details = f"Amount ₹{amount} via {payment_method}"
+    else:
+        gift_description = request.form.get('gift_description')
+        details = f"Gift: {gift_description}"
+
+    new_gift = Gift(name=name, place=place, amount_or_gift=details)
     db.session.add(new_gift)
     db.session.commit()
     return redirect(url_for('view_gifts'))
+
 
 @app.route('/gifts')
 @login_required
@@ -102,7 +114,18 @@ def delete_gift(gift_id):
 @login_required
 def download_pdf():
     gifts = Gift.query.all()
-    rendered = render_template('gifts_pdf.html', gifts=gifts)
+
+    # Extract and sum amount values
+    total_amount = 0
+    for gift in gifts:
+        if gift.amount_or_gift.startswith("Amount ₹"):
+            try:
+                amount_str = gift.amount_or_gift.split("₹")[1].split(" ")[0]
+                total_amount += float(amount_str)
+            except (IndexError, ValueError):
+                pass  # skip malformed entries
+
+    rendered = render_template('gifts_pdf.html', gifts=gifts, total_amount=total_amount)
     pdf = BytesIO()
     pisa_status = pisa.CreatePDF(rendered, dest=pdf)
 
@@ -114,6 +137,7 @@ def download_pdf():
         "Content-Type": "application/pdf",
         "Content-Disposition": "attachment; filename=marriage_gifts.pdf"
     })
+
 
 
 if __name__ == '__main__':

@@ -6,27 +6,72 @@
 </head>
 <body>
 
+    <!-- Logout Button -->
     <div class="top-right">
-    <form action="{{ url_for('logout') }}" method="GET">
-        <button type="submit" class="logout-btn">🚪 Logout</button>
-    </form>
+        <form action="{{ url_for('logout') }}" method="GET">
+            <button type="submit" class="logout-btn">🚪 Logout</button>
+        </form>
     </div>
 
-    <h2 style="text-align: center;">Enter Marriage Gift Details</h2>
-    <form method="POST" action="/submit_gift">
+    <h2 class="title">Enter Marriage Gift Details</h2>
+
+    <form method="POST" action="/submit_gift" class="form-container">
         <label>Name:</label>
         <input type="text" name="name" required>
 
         <label>Place:</label>
         <input type="text" name="place" required>
 
-        <label>Amount or Gift:</label>
-        <input type="text" name="amount_or_gift" required>
+        <label>Gift Type:</label>
+        <select name="gift_type" id="gift_type" onchange="toggleGiftDetails()" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="Amount">Amount</option>
+            <option value="Gift">Gift</option>
+        </select>
+
+        <!-- If Amount selected -->
+        <div id="amount-section" style="display: none;">
+            <label>Payment Method:</label>
+            <select name="payment_method">
+                <option value="UPI">UPI</option>
+                <option value="Cash">Cash</option>
+            </select>
+
+            <label>Amount (₹):</label>
+            <input type="text" name="amount_value">
+        </div>
+
+        <!-- If Gift selected -->
+        <div id="gift-section" style="display: none;">
+            <label>Gift Description:</label>
+            <input type="text" name="gift_description">
+        </div>
 
         <input type="submit" value="Submit Gift">
     </form>
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="/gifts">View All Gifts</a>
+
+    <div class="back-link">
+        <a href="{{ url_for('view_gifts') }}">📜 View All Gifts</a>
     </div>
+
+    <script>
+        function toggleGiftDetails() {
+            const selected = document.getElementById("gift_type").value;
+            const amountDiv = document.getElementById("amount-section");
+            const giftDiv = document.getElementById("gift-section");
+
+            if (selected === "Amount") {
+                amountDiv.style.display = "block";
+                giftDiv.style.display = "none";
+            } else if (selected === "Gift") {
+                giftDiv.style.display = "block";
+                amountDiv.style.display = "none";
+            } else {
+                giftDiv.style.display = "none";
+                amountDiv.style.display = "none";
+            }
+        }
+    </script>
+
 </body>
 </html>

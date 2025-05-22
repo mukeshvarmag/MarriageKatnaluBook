@@ -217,3 +217,15 @@ button:hover {
     text-decoration: underline;
 }
 
+select, input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    margin-bottom: 18px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #f0f4ff;
+    box-sizing: border-box;
+}
+
