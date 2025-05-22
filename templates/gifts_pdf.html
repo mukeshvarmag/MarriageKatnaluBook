@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h2 { text-align: center; color: #aa1256; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th { background-color: #f9d6e5; }
+    </style>
+</head>
+<body>
+    <h2>All Marriage Gifts</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Place</th>
+                <th>Amount / Gift</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gift in gifts %}
+            <tr>
+                <td>{{ gift.name }}</td>
+                <td>{{ gift.place }}</td>
+                <td>{{ gift.amount_or_gift }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

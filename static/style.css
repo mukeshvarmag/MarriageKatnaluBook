@@ -1,0 +1,219 @@
+/* Gorgeous Indian-style background with animated gradient */
+body {
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5, #fff9e6);
+    background-size: 200% 200%;
+    animation: gradientMove 10s ease infinite;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 30px;
+    color: #3a2f2f;
+    margin: 0;
+}
+
+/* Animate gradient */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Page title */
+.title {
+    text-align: center;
+    color: #aa1256;
+    margin-bottom: 30px;
+}
+
+/* ========== FORM STYLING ========== */
+form {
+    background: rgba(255, 255, 255, 0.92);
+    padding: 30px 25px; /* Added side padding */
+    border-radius: 12px;
+    max-width: 450px;
+    margin: 40px auto;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border: 2px solid #ffd6e0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+
+form label {
+    margin-top: 12px;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+/* Updated: Inputs for both text and password */
+input[type="text"],
+input[type="password"],
+input[type="submit"] {
+    width: 100%;
+    box-sizing: border-box;  /* Important: respects form padding */
+    padding: 12px;
+    margin-top: 12px;
+    margin-bottom: 18px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #f0f4ff;
+}
+
+
+/* Submit button style */
+input[type="submit"] {
+    background-color: #d63384;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #b3216b;
+}
+
+/* Centered links */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #8b0057;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ========== GIFT LIST STYLING ========== */
+.gift-list {
+    max-width: 700px;
+    margin: auto;
+    padding: 0;
+    list-style-type: none;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.gift-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.gift-item:last-child {
+    border-bottom: none;
+}
+
+.gift-info {
+    font-size: 1.1rem;
+}
+
+.gift-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.gift-actions form {
+    margin: 0;
+}
+
+.edit-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background: none;
+    border: 2px solid #ffd6e0;
+    color: #dc3545;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 8px 12px;
+    transition: all 0.3s ease;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.delete-btn:hover {
+    background-color: #ffe6ec;
+    text-decoration: underline;
+}
+
+/* Back link styling */
+.back-link {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.back-link a {
+    color: #8b0057;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Buttons in general */
+button {
+    font-size: 1rem;
+}
+
+button:hover {
+    text-decoration: underline;
+}
+
+/* Logout Button Top Right */
+.top-right {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
+
+.logout-btn {
+    background-color: #ff0000; /* Bright red */
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #cc0000; /* Slightly darker red on hover */
+}
+
+
+
+.download-btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #ffe6f0;       /* Light pink background */
+    color: #aa1256;                  /* Deep pink text */
+    border: 2px solid #d63384;       /* Stylish border */
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.download-btn:hover {
+    background-color: #fcd4e4;
+    transform: translateY(-1px);
+    text-decoration: underline;
+}
+

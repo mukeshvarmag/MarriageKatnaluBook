@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <title>Marriage Gift List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Logout Button -->
+    <div class="top-right">
+        <form action="{{ url_for('logout') }}" method="GET">
+            <button type="submit" class="logout-btn">🚪 Logout</button>
+        </form>
+    </div>
+
+    <h2 class="title">All Marriage Gifts</h2>
+
+    <ul class="gift-list">
+        {% for gift in gifts %}
+            <li class="gift-item">
+                <div class="gift-info">
+                    <strong>{{ gift.name }}</strong> from <em>{{ gift.place }}</em> gifted <strong>{{ gift.amount_or_gift }}</strong>
+                </div>
+                <div class="gift-actions">
+                    <a href="{{ url_for('edit_gift', gift_id=gift.id) }}" class="edit-btn">✏️ Edit</a>
+                    <form method="POST" action="{{ url_for('delete_gift', gift_id=gift.id) }}"
+                          onsubmit="return confirm('Are you sure you want to delete this gift?');">
+                        <button type="submit" class="delete-btn">🗑️ Delete</button>
+                    </form>
+                </div>
+            </li>
+        {% else %}
+            <li>No gifts added yet.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Navigation and PDF Button -->
+    <div class="back-link">
+        <a href="{{ url_for('home') }}">⬅️ Back to Add New Gift</a><br>
+        <a href="{{ url_for('download_pdf') }}" class="download-btn">⬇️ Download as PDF</a>
+    </div>
+
+</body>
+</html>
